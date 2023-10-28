@@ -1,3 +1,11 @@
+//file:A2_S21_20220102_problem4.cpp
+//purpose:solving problem number 4
+//author:habiba ahmed yousef
+//ID:20220102
+//TA:rana abdelhakim
+//date:25 oct 2023
+
+
 #include <bits/stdc++.h>
 using namespace std;
 
