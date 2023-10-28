@@ -1,3 +1,10 @@
+//file:A2_S21_20220102_problem1.cpp
+//purpose:solving problem number 1
+//author:habiba ahmed yousef
+//ID:20220102
+//TA:rana abdelhakim
+//date:25 oct 2023 
+
 #include <iostream>
 #include <cstring>
 #include <sstream>
