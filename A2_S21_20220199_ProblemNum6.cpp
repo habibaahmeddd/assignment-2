@@ -1,5 +1,5 @@
-//File:A2_S21_20220199_ProblemNum3.cpp
-//Purpose:Solving problem no. 3
+//File:A2_S21_20220199_ProblemNum6.cpp
+//Purpose:Solving problem no. 6
 //Author:Abdallah Ahmed Elsayed
 //ID:20220199
 //TA:Rana Abdelkhalik
