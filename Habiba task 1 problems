@@ -1,0 +1,177 @@
+//Problem 2
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+string Pronoun_Replacement(string sentence, string pronoun, string Replacement_Text) {
+    int Index_Of_Pronoun = sentence.find(pronoun);
+
+    while (Index_Of_Pronoun != -1) {
+        sentence.replace(Index_Of_Pronoun, pronoun.length(), Replacement_Text);
+        Index_Of_Pronoun = sentence.find(pronoun, Index_Of_Pronoun + Replacement_Text.length());
+    }
+    return sentence;
+}
+
+string Converted_Sentence(string sentence) {
+    sentence = Pronoun_Replacement(sentence, "he", "he or she");
+    sentence = Pronoun_Replacement(sentence, "him", "him or her");
+    sentence = Pronoun_Replacement(sentence, "his", "his or her");
+    return sentence;
+}
+
+int main() {
+    string sentence;
+    getline(cin, sentence);
+
+    cout<<Converted_Sentence(sentence);
+
+    return 0;
+}
+
+=============================================================================
+
+//Problem 8
+#include <iostream>
+#include <string>
+
+void printLine(int n, int i) {
+    for (int j = 0; j < i; j++) {
+        std::cout << "  ";  // Print spaces before the stars
+    }
+    
+    for (int j = 0; j < n; j++) {
+        std::cout << "* ";  // Print the stars
+    }
+    
+    std::cout << std::endl;
+}
+
+void pattern(int n, int i) {
+    if (n == 1) {
+        printLine(n, i);  // Base case: print a single line with one star
+    } else {
+        pattern(n / 2, i);  // Recursive call for the upper half
+        
+        printLine(n, i);  // Print the middle line
+        
+        pattern(n / 2, i + n / 2);  // Recursive call for the lower half
+    }
+}
+
+int main() {
+    pattern(8, 0);  // Example call with n = 8 and i = 0
+    return 0;
+}
+
+=============================================================================
+
+//Problem 11
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+bool compareFiles(string Text1, string Text2, bool charByChar) {
+    ifstream file1;
+    file1.open("C:\\Users\\iRepair\\Downloads\\semster1,2\\oop\\untitled1\\pops.txt");
+    ifstream file2;
+    file2.open("C:\\Users\\iRepair\\Downloads\\semster1,2\\oop\\untitled1\\hana.txt");
+
+    if (!file1.is_open() || !file2.is_open()) {
+        cout << "can not open file" << endl;
+        return false;
+    }
+
+    if (charByChar) {
+        char l1, l2;
+        int line = 1, position = 0;
+
+        while (file1.get(l1) && file2.get(l2)) {
+            if (l1 != l2) {
+                cout << "Files are not identical" << endl;
+                cout << "First difference found at line " << line << ", position " << position + 1 << endl;
+                cout << "File 1: " << l1 << endl;
+                cout << "File 2: " << l2 << endl;
+                return false;
+            }
+
+            if (l1 == '\n') {
+                line++;
+                position = 0;
+            } else {
+                position++;
+            }
+        }
+
+        if (file1.eof() && file2.eof()) {
+            cout << "Files are identical" << endl;
+            return true;
+        } else {
+            cout << "Files are not identical" << endl;
+            cout << "End of file reached for one of the files" << endl;
+            return false;
+        }
+    } else {
+        string w1, w2;
+        int line = 1, position = 0;
+
+        while (file1 >> w1 && file2 >> w2) {
+            if (w1 != w2) {
+                cout << "Files are not identical" << endl;
+                cout << "First difference found at line " << line << ", position " << position + 1 << endl;
+                cout << "File 1: " << w1 << endl;
+                cout << "File 2: " << w2 << endl;
+                return false;
+            }
+
+            position += w1.length() + 1;
+
+            if (w1.find('\n') != string::npos) {
+                line++;
+                position = 0;
+            }
+        }
+
+        if (file1.eof() && file2.eof()) {
+            cout << "Files are identical" << endl;
+            return true;
+        } else {
+            cout << "Files are not identical" << endl;
+            cout << "End of file reached for one of the files" << endl;
+            return false;
+        }
+    }
+}
+
+int main() {
+    string file1, file2;
+
+    cout << "Enter the name of the first file: ";
+    cin >> file1;
+
+    cout << "Enter the name of the second file: ";
+    cin >> file2;
+
+    char choice;
+
+    while (choice != 'c' && choice != 'w'){
+
+        cout << "Do you want to compare character by character or word by word? (c/w): ";
+        cin >> choice;
+
+        if (choice == 'c') {
+            compareFiles(file1, file2, true);
+        } else if (choice == 'w') {
+            compareFiles(file1, file2, false);
+        } else {
+            cout << "Invalid choice. Please enter 'c' or 'w'"<<endl;
+        }
+    }
+
+
+    return 0;
+}
